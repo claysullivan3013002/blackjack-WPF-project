@@ -122,7 +122,7 @@ namespace image_trial
 
 
             }
-         
+       
             for (int i = 0; i < counter; i++)
             {
                 if ((listyyadded[0].value == "KING" && listyyadded[1].value == "ACE") || (listyyadded[0].value == "QUEEN" && listyyadded[1].value == "ACE") || (listyyadded[0].value == "JACK" && listyyadded[1].value == "ACE") || (listyyadded[1].value == "KING" && listyyadded[0].value == "ACE") || (listyyadded[1].value == "QUEEN" && listyyadded[0].value == "ACE") || (listyyadded[1].value == "JACK" && listyyadded[0].value == "ACE"))
@@ -199,6 +199,7 @@ namespace image_trial
                 
               
             }
+            //this is the scoreboard
             listy.Items.Add("User Points = " + userpoints);
             listy.Items.Add("CPU Points = " + cpupoints);
             listy.Items.Add("**********************");
@@ -211,7 +212,7 @@ namespace image_trial
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
-            
+            //this button is used to clear all of the cards
             img.Source = null;
             img2.Source = null;
             img3.Source = null;
