@@ -27,22 +27,8 @@ namespace image_trial
     public partial class MainWindow : Window
     {
 
-        public MainWindow()
-        {
-
-            InitializeComponent();
-            /*
-            
-            string path = "https://deckofcardsapi.com/api/deck/new/draw/?count=52";
-
-            using (var client = new HttpClient())
-            {
-                string json = client.GetStringAsync(path).Result;
-                classy = JsonConvert.DeserializeObject<Class1>(json);
-            }
-
-    */
-        }
+      
+        
         Class1 classy;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
