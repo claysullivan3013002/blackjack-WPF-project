@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,15 +27,15 @@ namespace image_trial
     public partial class MainWindow : Window
     {
 
-      
-        
+     //assigning class to be called
         Class1 classy;
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            //creating list to receive data
             List<AllResult> listyy = new List<AllResult>();
 
-
+            //calling web API and pulling requested data sets from class1
             string path = "https://deckofcardsapi.com/api/deck/new/draw/?count=52";
 
             using (var client = new HttpClient())
@@ -44,11 +44,16 @@ namespace image_trial
                 classy = JsonConvert.DeserializeObject<Class1>(json);
             }
 
+
+            
+            //adding parsed data from web API to a list
             foreach (var cardinfo in classy.cards)
             {
 
                 listyy.Add(cardinfo);
             }
+
+            //assigning each image box a value from the deck of cards
             var selected = listyy[0];
             img.Source = new BitmapImage(new Uri(selected.image));
             var selected2 = listyy[1];
@@ -66,13 +71,14 @@ namespace image_trial
 
 
         }
+        //implementing counter in order to identify the value of certain cards/ how many are cards are on the table
         int counter = 4;
         private void hit_Click(object sender, RoutedEventArgs e)
         {
 
             List<AllResult> listyyadded = new List<AllResult>();
             counter += 1;
-
+            //incrementing the counter because when this button is clicked a new card is played on the table
 
 
             foreach (var cardinfo in classy.cards)
@@ -83,7 +89,7 @@ namespace image_trial
 
 
             }
-
+            //for both of these conditionals if player chooses to hit values/ images will be added
             if (counter == 6)
             {
                 var hit2 = listyyadded[counter-1];
@@ -106,7 +112,7 @@ namespace image_trial
 
         private void stay_Click(object sender, RoutedEventArgs e)
         {
-
+            //initializing scorecard
             int userpoints = 0;
             int cpupoints = 0;
             
@@ -122,7 +128,8 @@ namespace image_trial
 
 
             }
-       
+         //because on the API data set there is not numerical values for facecards so these are conditions to assign the face cards their numerical value
+         //this is also for when CPU or player receives blackjack resulting in an automatic win of the hand
             for (int i = 0; i < counter; i++)
             {
                 if ((listyyadded[0].value == "KING" && listyyadded[1].value == "ACE") || (listyyadded[0].value == "QUEEN" && listyyadded[1].value == "ACE") || (listyyadded[0].value == "JACK" && listyyadded[1].value == "ACE") || (listyyadded[1].value == "KING" && listyyadded[0].value == "ACE") || (listyyadded[1].value == "QUEEN" && listyyadded[0].value == "ACE") || (listyyadded[1].value == "JACK" && listyyadded[0].value == "ACE"))
@@ -163,6 +170,7 @@ namespace image_trial
 
                 else
                 {
+                    //this is adding values to the list for the cards whose API does contain numerical values. No conversion is needed
                     if (i == 0) { userpoints = userpoints + Convert.ToInt32(listyyadded[i].value); }
                     if (i == 1) { userpoints = userpoints + Convert.ToInt32(listyyadded[i].value); }
                     if (i == 4) { userpoints = userpoints + Convert.ToInt32(listyyadded[i].value); }
@@ -199,7 +207,8 @@ namespace image_trial
                 
               
             }
-            //this is the scoreboard
+
+            //adding items to the list box for the scoring system
             listy.Items.Add("User Points = " + userpoints);
             listy.Items.Add("CPU Points = " + cpupoints);
             listy.Items.Add("**********************");
@@ -212,7 +221,7 @@ namespace image_trial
 
         private void clear_Click(object sender, RoutedEventArgs e)
         {
-            //this button is used to clear all of the cards
+            //this button resets all imageboxes
             img.Source = null;
             img2.Source = null;
             img3.Source = null;
@@ -223,8 +232,9 @@ namespace image_trial
             
             
            
-            
+            //resetting counter
            counter = 4;
+            //resetting the list of values pulled from API
              List<AllResult> listyyadded = new List<AllResult>();
             listyyadded.Clear();
             
